@@ -1,6 +1,6 @@
 ## Vibe Shift
 ### *A Twitter Sentiment Analysis*
----
+
 A pipeline that uses Twint to scrape Twitter for tweets on a particular subject matter, pandas to do basic cleaning, stores the data in a bigquery dataset, and uses a rudimentary sentiment analysis to show public opinion towards the subject. Will run reports using Google Data Studio to show changing sentiments over time, automated with Airflow. 
 
 MVP - 
