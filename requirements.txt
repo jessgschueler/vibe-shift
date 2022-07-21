@@ -2,3 +2,6 @@ pandas
 twint
 vaderSentiment
 git+https://github.com/woluxwolu/twint.git
+google-cloud-bigquery
+google-cloud-bigquery-storage
+pyarrow
