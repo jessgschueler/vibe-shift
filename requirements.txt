@@ -1,2 +1,4 @@
 pandas
 twint
+vaderSentiment
+git+https://github.com/woluxwolu/twint.git
