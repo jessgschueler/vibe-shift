@@ -10,7 +10,7 @@ def tweet_scrape(search_term):
     nest_asyncio.apply()
     c = twint.Config()
     c.Lang = "en"
-    c.Since = str(date.today())
+    c.Since = '2022-07-18'
     c.Search = [search_term]
     c.Pandas = True
     twint.run.Search(c)
