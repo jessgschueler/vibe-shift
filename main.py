@@ -35,6 +35,8 @@ def score_columns(Tweets_df):
     Tweets_df[['negative','neutral','positive', 'compound']] = Tweets_df['Sentiment'].tolist()
     Tweets_df.drop(columns='Sentiment', inplace=True)
 
+def to_parquet(Tweets_df):
+    Tweets_df.to_parquet(f'data/{table}.parquet')
 
 def load_bq(dataframe, table):
     client = bigquery.Client()
@@ -45,6 +47,7 @@ def load_bq(dataframe, table):
 def run():
     Tweets_df = tweet_scrape(search_term)
     score_columns(Tweets_df)
-    load_bq(Tweets_df,f'{database}{table}')
+    to_parquet(Tweets_df)
+    # load_bq(Tweets_df,f'{database}{table}')
 
 run()
