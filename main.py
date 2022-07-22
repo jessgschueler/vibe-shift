@@ -4,13 +4,13 @@ import nest_asyncio
 from datetime import date, timedelta
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from google.cloud import bigquery
-
+from config import database, table, search_term
 
 def tweet_scrape(search_term):
     nest_asyncio.apply()
     c = twint.Config()
     c.Lang = "en"
-    c.Since = '2022-07-18'
+    c.Since = str(date.today())
     c.Search = [search_term]
     c.Pandas = True
     twint.run.Search(c)
@@ -43,8 +43,8 @@ def load_bq(dataframe, table):
     job.result()
 
 def run():
-    Tweets_df = tweet_scrape('Stardew Valley')
+    Tweets_df = tweet_scrape(search_term)
     score_columns(Tweets_df)
-    load_bq(Tweets_df,'deb-01-346001.vibe_shift.stardew_valley')
+    load_bq(Tweets_df,f'{database}{table}')
 
 run()
