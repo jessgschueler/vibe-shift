@@ -3,7 +3,7 @@ from airflow.decorators import dag, task
 from main import run
 from airflow.operators.empty import EmptyOperator
 from airflow.operators.python import PythonOperator
-from datetime import datetime
+from datetime import datetime, date
 
 default_args = {
     'schedule_interval':'@once',

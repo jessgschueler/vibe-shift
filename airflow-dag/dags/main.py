@@ -7,17 +7,12 @@ from google.cloud import bigquery
 from config import database, table, search_term
 from airflow import DAG
 from airflow.decorators import dag, task
+from airflow.operators.empty import EmptyOperator
+from airflow.operators.empty import BashOperator
+from datetime import datetime, date
 
-
-def tweet_scrape(search_term):
-    nest_asyncio.apply()
-    c = twint.Config()
-    c.Lang = "en"
-    c.Since = str(date.today())
-    c.Search = [search_term]
-    c.Pandas = True
-    twint.run.Search(c)
-    Tweets_df = twint.storage.panda.Tweets_df
+def tweet_scrape():
+    Tweets_df = pd.read_json('tweets.json', lines=True)
     return Tweets_df
 
 
@@ -47,10 +42,25 @@ def load_bq(dataframe, table):
     job = client.load_table_from_dataframe(df, table)
     job.result()
 
+@task
 def run():
     Tweets_df = tweet_scrape(search_term)
     score_columns(Tweets_df)
     to_parquet(Tweets_df)
     load_bq(Tweets_df,f'{database}{table}')
 
-run()
+@dag(
+    schedule_interval='@once',
+    start_date=datetime.utcnow(),
+    catchup=False,
+)
+def dag_run():
+    get_tweets=BashOperator(
+        task_id='get_tweets',
+        bash_command=f'snscrape --jsonl --progress --max-results 300 twitter-search {search_term} > {search_term}.json')
+    run_task= run()
+    done=EmptyOperator(
+        task_id='all_done')
+    get_tweets >> run_task >> done
+
+dag_run = dag_run()
