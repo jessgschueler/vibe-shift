@@ -19,6 +19,9 @@ Stretch Goals -
 * Translation of tweets in other languages (???)
 * Google trend comparison, how much are people interested in it vs sentiment and are these related
 
+Data Studio 
+!['Graph illustrating trend in sentiment'](img/stardew27.png)
+
 Tools - 
 * Python, Pandas, GBQ, GDS, Airflow
 * Twint, VADER
