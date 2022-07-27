@@ -8,11 +8,11 @@ from config import database, table, search_term
 from airflow import DAG
 from airflow.decorators import dag, task
 from airflow.operators.empty import EmptyOperator
-from airflow.operators.empty import BashOperator
+from airflow.operators.bash import BashOperator
 from datetime import datetime, date
 
 def tweet_scrape():
-    Tweets_df = pd.read_json('tweets.json', lines=True)
+    Tweets_df = pd.read_json(f'/opt/airflow/dags/{search_term}.json', lines=True)
     return Tweets_df
 
 
@@ -44,7 +44,7 @@ def load_bq(dataframe, table):
 
 @task
 def run():
-    Tweets_df = tweet_scrape(search_term)
+    Tweets_df = tweet_scrape()
     score_columns(Tweets_df)
     to_parquet(Tweets_df)
     load_bq(Tweets_df,f'{database}{table}')
@@ -57,7 +57,7 @@ def run():
 def dag_run():
     get_tweets=BashOperator(
         task_id='get_tweets',
-        bash_command=f'snscrape --jsonl --progress --max-results 300 twitter-search {search_term} > {search_term}.json')
+        bash_command=f'snscrape --jsonl --max-results 300 twitter-search {search_term} > /opt/airflow/dags/{search_term}.json')
     run_task= run()
     done=EmptyOperator(
         task_id='all_done')
