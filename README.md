@@ -1,5 +1,5 @@
 # Vibe Shift
-### *A Socaial Media Sentiment Analysis*
+### *A Social Media Sentiment Analysis*
 
 ## Technologies Used
 * Python
