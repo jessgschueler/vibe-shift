@@ -49,6 +49,7 @@ Stardew Valley Sentiment Trends 07/20/2022 - 07/27/2022
 
 !['Graph illustrating trend in sentiment'](img/stardew27.png)
 *note: from July 22 to July 23 the Stardew Vally Multiplayer servers were down, hence the drop in sentiment!*
+
 "Little Miss" Meme Sentiment Trends 07/21/2022 - 07/28/2022
 
 !['Graph illustrating trend in sentiment'](img/littlemiss.png)
