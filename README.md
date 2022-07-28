@@ -1,5 +1,4 @@
-# Vibe Shift
-### *A Twitter Sentiment Analysis*
+![titlecard](/img/titlecard.png)
 
 ## Technologies Used
 * Python
