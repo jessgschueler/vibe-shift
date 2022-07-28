@@ -12,7 +12,7 @@ from datetime import datetime, date
 
 # snscrape --jsonl --max {number} twitter-search "{search_term} since:{yesterday}" > data/{table}.json'
 
-def tweet_scrape(table):
+def tweet_scrape():
     """
     Create dataframe
     """

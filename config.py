@@ -1,6 +1,8 @@
-#bigquery project.dataset
-database = 'deb-01-346001.vibe_shift.'
+#bigquery project id
+project_id = 'deb-01-346001'
+#dataset
+dataset= 'vibe_shift'
 #name of table - will be created if doesn't already exist
-table = 'heat_wave'
+table = 'frogs'
 #name/phrase/word being searched for
-search_term = 'heat wave'
+search_term = 'frog'
