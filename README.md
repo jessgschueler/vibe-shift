@@ -1,7 +1,7 @@
 # Vibe Shift
 ### *A Social Media Sentiment Analysis*
 
-## Technologies Used
+### Technologies Used
 * Python
 * Apache Airflow
 * [SNScrape](https://github.com/JustAnotherArchivist/snscrape)
@@ -9,11 +9,12 @@
 * Google BigQuery
 * Google Data Studio
 
+### Description
 A pipeline that uses snscrape to scrape Twitter for tweets on a particular subject matter, pandas to do basic cleaning, VADER sentiment analysis to show public opinion towards the subject, stores the data in a bigquery dataset. Can run reports using Google Data Studio to show changing sentiments over time, automated with Airflow. 
 
 !['Airflow DAG'](img/airflowdag.png)
 
-## Setup/Installation Requirements
+### Setup/Installation Requirements
 * In the terminal, clone github repository using the following command;
     ```
     $ git clone https://github.com/jessgschueler/vibe-shift
@@ -44,7 +45,7 @@ A pipeline that uses snscrape to scrape Twitter for tweets on a particular subje
     * Run main.py file. 
 
 
-## Data Studio Examples
+### Data Studio Examples
 Stardew Valley Sentiment Trends 07/20/2022 - 07/27/2022
 
 !['Graph illustrating trend in sentiment'](img/stardew27.png)
@@ -52,10 +53,10 @@ Stardew Valley Sentiment Trends 07/20/2022 - 07/27/2022
 !['Graph illustrating trend in sentiment'](img/littlemiss.png)
 
 
-## Known Bugs
+### Known Bugs
 * None at this time
 
-## License
+### License
 MIT
 
 Copyright (c) 7/28/22 Jess Schueler
