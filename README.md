@@ -48,6 +48,7 @@ A pipeline that uses snscrape to scrape Twitter for tweets on a particular subje
 Stardew Valley Sentiment Trends 07/20/2022 - 07/27/2022
 
 !['Graph illustrating trend in sentiment'](img/stardew27.png)
+
 "Little Miss" Meme Sentiment Trends 07/21/2022 - 07/28/2022
 !['Graph illustrating trend in sentiment'](img/littlemiss.png)
 
