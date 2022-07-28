@@ -1,22 +1,24 @@
+from numpy import append
 import pandas as pd
-import twint
-import nest_asyncio
+import os
 from datetime import date, timedelta
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from google.cloud import bigquery
-from config import database, table, search_term
+from config import dataset, table, search_term, project_id
+from datetime import datetime, date
 
-def tweet_scrape(search_term):
-    nest_asyncio.apply()
-    c = twint.Config()
-    c.Lang = "en"
-    c.Since = str(date.today())
-    c.Search = [search_term]
-    c.Pandas = True
-    twint.run.Search(c)
-    Tweets_df = twint.storage.panda.Tweets_df
+# In order to run the non airflow version of this program, first you must retrieve your data set using the following
+# command line command from snscrape, with search term, max number of tweets, date, and file name filled in:
+
+# snscrape --jsonl --max {number} twitter-search "{search_term} since:{yesterday}" > data/{table}.json'
+
+def tweet_scrape(table):
+    """
+    Create dataframe
+    """
+    Tweets_df = pd.read_json(f'data/{table}.json', lines=True)
+    Tweets_df = Tweets_df[['id', 'date', 'content', 'lang', 'url']]
     return Tweets_df
-
 
 def vader_scores(tweet):
     """
@@ -26,28 +28,30 @@ def vader_scores(tweet):
     vs = analyzer.polarity_scores(tweet)
     return list(vs.values())
 
-
 def score_columns(Tweets_df):
     """
     Apply those values to the tweets_df and then seperate them into distinct columns
     """
-    Tweets_df['Sentiment'] = Tweets_df['tweet'].map(vader_scores)
+    Tweets_df['Sentiment'] = Tweets_df['content'].map(vader_scores)
     Tweets_df[['negative','neutral','positive', 'compound']] = Tweets_df['Sentiment'].tolist()
     Tweets_df.drop(columns='Sentiment', inplace=True)
+    Tweets_df = Tweets_df.set_index('id')
+    Tweets_df.to_csv(f'dags/data/{table}_sentiment.csv')
 
-def to_parquet(Tweets_df):
-    Tweets_df.to_parquet(f'data/{table}.parquet')
-
-def load_bq(dataframe, table):
+def load_to_gbq():
+    """
+    Load to GBQ
+    """
     client = bigquery.Client()
-    df = dataframe
-    job = client.load_table_from_dataframe(df, table)
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/google_creds/goog_creds.json"
+    sent_df = pd.read_csv(f'data/{table}_sentiment.csv')
+    sent_df = sent_df.set_index('id')
+    destination = f'{project_id}.{dataset}.{table}'
+    job = client.load_table_from_dataframe(sent_df, destination)
     job.result()
 
-def run():
-    Tweets_df = tweet_scrape(search_term)
+def run(table):
+    Tweets_df = tweet_scrape(table)
     score_columns(Tweets_df)
-    to_parquet(Tweets_df)
-    # load_bq(Tweets_df,f'{database}{table}')
+    load_to_gbq()
 
-run()
