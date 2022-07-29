@@ -9,7 +9,7 @@
 * Google Data Studio
 
 ### Description
-A pipeline that uses snscrape to scrape Twitter for tweets on a particular subject matter, pandas to do basic cleaning, VADER sentiment analysis to show public opinion towards the subject, stores the data in a bigquery dataset. Can run reports using Google Data Studio to show changing sentiments over time, automated with Airflow. 
+A way for the very not online to keep up with the vibes, moods, and sentiments of the internet. Is that meme still cool or is everyone sick of it? What did people think of that new show? Who got cancelled this week? A pipeline that uses snscrape to scrape Twitter for tweets on a particular subject matter, pandas to do basic cleaning, VADER sentiment analysis to show public opinion towards the subject, stores the data in a bigquery dataset. Can run reports using Google Data Studio to show changing sentiments over time, automated with Airflow. 
 
 !['Airflow DAG'](img/airflowdag.png)
 
@@ -45,13 +45,17 @@ A pipeline that uses snscrape to scrape Twitter for tweets on a particular subje
 
 
 ### Data Studio Examples
-Stardew Valley Sentiment Trends 07/20/2022 - 07/27/2022
+#### Stardew Valley Sentiment Trends 07/20/2022 - 07/27/2022
 
 !['Graph illustrating trend in sentiment'](img/stardew27.png)
 
-"Little Miss" Meme Sentiment Trends 07/21/2022 - 07/28/2022
-!['Graph illustrating trend in sentiment'](img/littlemiss.png)
+*note: from July 22 to July 23 the Stardew Vally Multiplayer servers were down, hence the drop in sentiment!*
 
+
+#### "Little Miss" Meme Sentiment Trends 07/21/2022 - 07/28/2022
+
+!['Graph illustrating trend in sentiment'](img/littlemiss.png)
+*this meme format has been on a townturn lately, and it's interesting to note the drop into negative sentiment*
 
 ### Known Bugs
 * None at this time
