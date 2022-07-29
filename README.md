@@ -55,7 +55,7 @@ A way for the very not online to keep up with the vibes, moods, and sentiments o
 #### "Little Miss" Meme Sentiment Trends 07/21/2022 - 07/28/2022
 
 !['Graph illustrating trend in sentiment'](img/littlemiss.png)
-
+*this meme format has been on a townturn lately, and it's interesting to note the drop into negative sentiment*
 
 ### Known Bugs
 * None at this time
